@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CamareiraFacil.View.Servico"
+             Title="Camareira Fácil">
+    <StackLayout Padding="20">
+        <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
+            <Label Text="Ordem Serviço" FontSize="20"/>
+        </StackLayout>
+        <Picker x:Name="pckApartamentos" Title="Apartamento" />
+        <Editor x:Name="edtMensagem" HeightRequest="300" />
+        <StackLayout HorizontalOptions="CenterAndExpand" Orientation="Horizontal">
+            <Button Text="Enviar" Clicked="Button_Clicked" />
+        </StackLayout>
+    </StackLayout>
+</ContentPage>

@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CamareiraFacil.View.Consumo"
+             Title="Camareira Fácil">
+    <ContentPage.Content>
+        <StackLayout>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
+                <Picker x:Name="pckPontoVenda" Title="Ponto de Venda" />
+            </StackLayout>
+            <StackLayout>
+                <Label Text="Produto"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Picker x:Name="pckProdutos" Title="Selecione Produtos" ItemsSource="{Binding produtos}" ItemDisplayBinding="{Binding Descricao}" SelectedIndexChanged="pckProdutos_SelectedIndexChanged"/>
+                <Entry x:Name="edtQuantidade" Placeholder="Quant."/>
+                <Button x:Name="btnAdicionar" Text="Adicionar" Clicked="btnAdicionar_Clicked" />
+            </StackLayout>
+            <ListView x:Name="lstView" SeparatorVisibility="None" ItemsSource="{Binding ListaItens}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid HeightRequest="20"
+                            Padding="10"
+                            RowSpacing="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <Label Grid.Column="0"
+                                Grid.Row="0"
+                                Text="{Binding Codigo}"
+                                VerticalTextAlignment="Center"
+                                VerticalOptions="Center" />
+                                <Label Grid.Column="1"
+                                Grid.Row="0"
+                                Text="{Binding Descricao}"
+                                VerticalTextAlignment="Center"
+                                VerticalOptions="Center" />
+                                <Label Grid.Column="2"
+                                Grid.Row="0"
+                                Text="{Binding Quantidade}"
+                                VerticalTextAlignment="Center"
+                                VerticalOptions="Center" 
+                                HorizontalTextAlignment="End"/>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <StackLayout>
+                <Picker x:Name="pckApartamentos" Title="Selecione Apartamento" ItemsSource="{Binding apartamentos}" ItemDisplayBinding="{Binding NApto}" SelectedIndexChanged="pckApartamentos_SelectedIndexChanged"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
+                <Button x:Name="btnOK" Text="OK" Clicked="btnOK_Clicked" />
+                <Button x:Name="btnCancelar" Text="Cancelar" Clicked="btnCancelar_Clicked" />
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

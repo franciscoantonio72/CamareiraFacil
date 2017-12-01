@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CamareiraFacil.View.Principal"
+             xmlns:controls="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"
+             Title="Camareira Fácil">
+    <StackLayout Padding="20">
+        <Grid VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="150"></RowDefinition>
+                <RowDefinition Height="150"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <controls:ImageButton x:Name="consumofrigobar"
+                              BackgroundColor="Transparent"
+                              HeightRequest="75"
+                              ImageHeightRequest="150"
+                              ImageWidthRequest="150"
+                              Orientation="ImageOnTop"
+                              Text="Consumo Frigobar"
+                              TextColor="Black"
+                              WidthRequest="175"
+                              Grid.Row="0"
+                              Grid.Column="0">
+                <controls:ImageButton.Source>
+                    <OnPlatform x:TypeArguments="ImageSource">
+                        <OnPlatform.iOS>
+                            <FileImageSource File="" />
+                        </OnPlatform.iOS>
+                        <OnPlatform.Android>
+                            <FileImageSource File="frigobar.png" />
+                        </OnPlatform.Android>
+                        <OnPlatform.WinPhone>
+                            <FileImageSource File="" />
+                        </OnPlatform.WinPhone>
+                    </OnPlatform>
+                </controls:ImageButton.Source>
+            </controls:ImageButton>
+            <controls:ImageButton x:Name="limpeza"
+                              BackgroundColor="Transparent"
+                              HeightRequest="75"
+                              ImageHeightRequest="150"
+                              ImageWidthRequest="150"
+                              Orientation="ImageOnTop"
+                              Text="Limpeza"
+                              TextColor="Black"
+                              WidthRequest="175"
+                              Grid.Row="0"
+                              Grid.Column="1">
+                <controls:ImageButton.Source>
+                    <OnPlatform x:TypeArguments="ImageSource">
+                        <OnPlatform.iOS>
+                            <FileImageSource File="" />
+                        </OnPlatform.iOS>
+                        <OnPlatform.Android>
+                            <FileImageSource File="carrinholimpezagalvocar50.png" />
+                        </OnPlatform.Android>
+                        <OnPlatform.WinPhone>
+                            <FileImageSource File="" />
+                        </OnPlatform.WinPhone>
+                    </OnPlatform>
+                </controls:ImageButton.Source>
+            </controls:ImageButton>
+            <controls:ImageButton x:Name="ordemservico"
+                              BackgroundColor="Transparent"
+                              HeightRequest="75"
+                              ImageHeightRequest="150"
+                              ImageWidthRequest="150"
+                              Orientation="ImageOnTop"
+                              Text="Ordem de Serviço"
+                              TextColor="Black"
+                              WidthRequest="175"
+                              Grid.Row="1"
+                              Grid.Column="0">
+                <controls:ImageButton.Source>
+                    <OnPlatform x:TypeArguments="ImageSource">
+                        <OnPlatform.iOS>
+                            <FileImageSource File="" />
+                        </OnPlatform.iOS>
+                        <OnPlatform.Android>
+                            <FileImageSource File="Caixadeferramentas.png" />
+                        </OnPlatform.Android>
+                        <OnPlatform.WinPhone>
+                            <FileImageSource File="" />
+                        </OnPlatform.WinPhone>
+                    </OnPlatform>
+                </controls:ImageButton.Source>
+            </controls:ImageButton>
+            <controls:ImageButton x:Name="mensagem"
+                              BackgroundColor="Transparent"
+                              HeightRequest="75"
+                              ImageHeightRequest="150"
+                              ImageWidthRequest="150"
+                              Orientation="ImageOnTop"
+                              Text="Mensagem"
+                              TextColor="Black"
+                              WidthRequest="175"
+                              Grid.Row="1"
+                              Grid.Column="1">
+                <controls:ImageButton.Source>
+                    <OnPlatform x:TypeArguments="ImageSource">
+                        <OnPlatform.iOS>
+                            <FileImageSource File="" />
+                        </OnPlatform.iOS>
+                        <OnPlatform.Android>
+                            <FileImageSource File="Notepad.png" />
+                        </OnPlatform.Android>
+                        <OnPlatform.WinPhone>
+                            <FileImageSource File="" />
+                        </OnPlatform.WinPhone>
+                    </OnPlatform>
+                </controls:ImageButton.Source>
+            </controls:ImageButton>
+        </Grid>
+    </StackLayout>
+</ContentPage>

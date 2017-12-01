@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CamareiraFacil.View.Mensagem"
+             Title="Camareira Fácil">
+    <StackLayout Padding="20">
+        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" >
+            <Label Text="Mensagem" FontSize="20"/>
+        </StackLayout>
+        <StackLayout Orientation="Vertical" HorizontalOptions="Start">
+            <Picker x:Name="pckFuncionario" Title="Funcionario" ItemsSource="{Binding funcionario}" ItemDisplayBinding="{Binding Descricao}" SelectedIndexChanged="pckFuncionario_SelectedIndexChanged"/>
+            <Entry x:Name="edtAssunto" Placeholder="Assunto" WidthRequest="300" />
+        </StackLayout>
+        <Editor x:Name="edtMensagem" HeightRequest="300"/>
+        <StackLayout HorizontalOptions="CenterAndExpand" Orientation="Horizontal">
+            <Button Text="Enviar" Clicked="Button_Clicked" />
+        </StackLayout>
+    </StackLayout>
+</ContentPage>

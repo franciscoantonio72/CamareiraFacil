@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CamareiraFacil.View.Limpeza"
+             xmlns:controls="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"
+             Title="Camareira Fácil">
+    <ContentPage.Content>
+        <StackLayout>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
+                <Picker x:Name="pckApartamentos" Title="Apartamento" />
+            </StackLayout>            
+            <ListView x:Name="lstView" SeparatorVisibility="None" IsEnabled="False" ItemTapped="lstView_ItemTapped" ItemsSource="{Binding .}"> 
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ViewCell.View>
+                                <controls:CheckBox  DefaultText="{Binding}" HorizontalOptions="FillAndExpand" TextColor="Black" FontSize="20"  />
+                            </ViewCell.View>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
+                <Button x:Name="btnIniciar" Text="Iniciar Limpeza" Clicked="btnIniciar_Clicked" />
+                <Button x:Name="btnFinalizar" Text="Finalizar Limpeza" Clicked="btnFinalizar_Clicked" />
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
