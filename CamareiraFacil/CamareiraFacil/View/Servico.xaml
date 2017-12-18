@@ -7,10 +7,12 @@
         <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
             <Label Text="Ordem Serviço" FontSize="20"/>
         </StackLayout>
-        <Picker x:Name="pckApartamentos" Title="Apartamento" />
+        <Picker x:Name="pckApartamentos" Title="Local do Serviço" ItemsSource="{Binding listaLocais}" ItemDisplayBinding="{Binding Descricao}" SelectedIndexChanged="pckApartamentos_SelectedIndexChanged"/>
+        <Label Text="Descrição do Defeito"/>
         <Editor x:Name="edtMensagem" HeightRequest="300" />
         <StackLayout HorizontalOptions="CenterAndExpand" Orientation="Horizontal">
-            <Button Text="Enviar" Clicked="Button_Clicked" />
+            <Button x:Name="btnGravar" Text="Gravar" Clicked="Button_Clicked" />
+            <Button x:Name="btnCancelar" Text="Cancelar" Clicked="btnCancelar_Clicked" />
         </StackLayout>
     </StackLayout>
 </ContentPage>

@@ -11,8 +11,8 @@ namespace CamareiraFacil.Service
 {
     public class ApiCamareiraFacil
     {
-        private const string BaseURL = "http://192.168.0.7:6051";
-        private const string BaseURLConsumo = "http://192.168.0.7:6051/datasnap/rest/TServerMethods1/LancaConsumo";
+        private const string BaseURL = "http://192.168.0.9:6051";
+        private const string BaseURLConsumo = "http://192.168.0.9:6051/datasnap/rest/TServerMethods1/LancaConsumo";
 
         public List<ItemPDV> GetItensPDV(string pdv)
         {
@@ -158,7 +158,35 @@ namespace CamareiraFacil.Service
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message.ToString());
+                //Console.WriteLine(e.Message.ToString());
+                throw;
+            }
+        }
+
+        public List<LocaisManutencao> GetLocaisManutencao()
+        {
+            try
+            {
+                var httpClient = new HttpClient();
+                httpClient.BaseAddress = new Uri(BaseURL);
+                httpClient.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+
+                HttpResponseMessage response = httpClient.GetAsync("datasnap/rest/TServerMethods1/BuscarLocaisManutencao").Result;
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var teste = response.Content.ReadAsStringAsync().Result;
+
+                    var resultado = JsonConvert.DeserializeObject<DataSnapResponse<List<LocaisManutencao>>>(teste);
+
+                    return resultado.result;
+                }
+
+                return null;
+            }
+            catch (Exception e)
+            {
+                //Console.WriteLine(e.Message.ToString());
                 throw;
             }
         }

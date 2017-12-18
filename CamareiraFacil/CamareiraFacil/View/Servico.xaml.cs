@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Acr.UserDialogs;
+using CamareiraFacil.Model;
+using CamareiraFacil.Service;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,20 +15,47 @@ namespace CamareiraFacil.View
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class Servico : ContentPage
 	{
-		public Servico ()
+        public LocaisManutencao locais;
+        List<LocaisManutencao> listaLocais = new List<LocaisManutencao>();
+
+        public Servico ()
 		{
 			InitializeComponent ();
 
-            List<String> listaApartamentos = new List<string> { "101", "102", "103", "104", "105" };
-            pckApartamentos.ItemsSource = listaApartamentos;
+            CarregarLocaisManutencao();
+        }
+
+        private async void CarregarLocaisManutencao()
+        {
+            using (var objDialog = UserDialogs.Instance.Loading("Carregando..."))
+            {
+                await Task.Delay(2000);
+            }
+            ApiCamareiraFacil api = new ApiCamareiraFacil();
+            listaLocais = api.GetLocaisManutencao();
+            pckApartamentos.ItemsSource = listaLocais;
         }
 
         private void Button_Clicked(object sender, EventArgs e)
         {
-            Page original = App.Current.MainPage.Navigation.NavigationStack.Last();
-            App.Current.MainPage.Navigation.PopAsync().ConfigureAwait(false);
-            App.Current.MainPage.Navigation.PushAsync(new Principal());
-            App.Current.MainPage.Navigation.RemovePage(original);
+            if (pckApartamentos.SelectedIndex == -1)
+            {
+                DisplayAlert("Aviso", "Falta informar o local da manutenção!", "OK");
+                return;
+            }
+
+            DisplayAlert("Informação", "Gravado com sucesso!", "OK");
+            Navigation.PopAsync().ConfigureAwait(false);
+        }
+
+        private void pckApartamentos_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            locais = listaLocais[pckApartamentos.SelectedIndex];
+        }
+
+        private void btnCancelar_Clicked(object sender, EventArgs e)
+        {
+            Navigation.PopAsync().ConfigureAwait(false);
         }
     }
 }

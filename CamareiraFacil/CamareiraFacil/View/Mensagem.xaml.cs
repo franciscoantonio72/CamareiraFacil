@@ -46,10 +46,7 @@ namespace CamareiraFacil.View
             }
             else
             {
-                Page original = App.Current.MainPage.Navigation.NavigationStack.Last();
-                App.Current.MainPage.Navigation.PopAsync().ConfigureAwait(false);
-                App.Current.MainPage.Navigation.PushAsync(new Principal());
-                App.Current.MainPage.Navigation.RemovePage(original);
+                await Navigation.PopAsync().ConfigureAwait(false);
             }
         }
 

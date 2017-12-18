@@ -20,6 +20,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Model\Funcionario.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\ItemLancamento.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\ItemPDV.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\LocaisManutencao.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\Produto.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\Recado.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Service\ApiCamareiraFacil.cs" />
