@@ -1,18 +1,25 @@
 ﻿using CamareiraFacil.Model;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Net.Http;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Text;
+using System.Net.Http;
+using Newtonsoft.Json;
+using Plugin.Connectivity;
 
 namespace CamareiraFacil.Service
 {
     public class ApiCamareiraFacil
     {
-        private const string BaseURL = "http://192.168.0.9:6051";
-        private const string BaseURLConsumo = "http://192.168.0.9:6051/datasnap/rest/TServerMethods1/LancaConsumo";
+        private const string BaseURL = "http://192.168.0.12:6051";
+        private const string BaseURLConsumo = "http://192.168.0.12:6051/datasnap/rest/TServerMethods1/LancaConsumo";
+
+        public ApiCamareiraFacil()
+        {
+            if (!CrossConnectivity.Current.IsConnected)
+                throw new System.ArgumentException("Sem Conectividade", "Erro");
+        }
 
         public List<ItemPDV> GetItensPDV(string pdv)
         {
@@ -33,13 +40,11 @@ namespace CamareiraFacil.Service
 
                     return resultado.result;
                 }
-
                 return null;
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message.ToString());
-                throw;
+                throw e;
             }
         }
 
@@ -61,13 +66,11 @@ namespace CamareiraFacil.Service
 
                     return resultado.result;
                 }
-
                 return null;
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message.ToString());
-                throw;
+                throw e;
             }
         }
 
@@ -87,19 +90,14 @@ namespace CamareiraFacil.Service
                     if (response.IsSuccessStatusCode)
                     {
                         var teste = response.Content.ReadAsStringAsync().Result;
-
-                        // var resultado = JsonConvert.DeserializeObject<DataSnapResponse<List<Apartamento>>>(teste);
-
-                        return true; // resultado.result;
+                        return true;
                     }
-
                 }
                 return false;
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message.ToString());
-                throw;
+                throw e;
             }
         }
 
@@ -119,19 +117,101 @@ namespace CamareiraFacil.Service
                     if (response.IsSuccessStatusCode)
                     {
                         var teste = response.Content.ReadAsStringAsync().Result;
-
-                        // var resultado = JsonConvert.DeserializeObject<DataSnapResponse<List<Apartamento>>>(teste);
-
-                        return true; // resultado.result;
+                        return true; 
                     }
-
                 }
                 return false;
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message.ToString());
-                throw;
+                throw e;
+            }
+        }
+
+        public async Task<bool> GravaOrdemServico(OrdemServico ordemServico)
+        {
+            try
+            {
+                var jsonRecado = JsonConvert.SerializeObject(ordemServico);
+
+                using (var httpClient = new HttpClient())
+                {
+                    HttpRequestMessage message = new HttpRequestMessage(HttpMethod.Post, BaseURL + "/datasnap/rest/TServerMethods1/GravaServico");
+                    message.Content = new StringContent(jsonRecado, Encoding.UTF8, "application/json");
+
+                    HttpResponseMessage response = await httpClient.SendAsync(message);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var teste = response.Content.ReadAsStringAsync().Result;
+                        return true;
+                    }
+                }
+                return false;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public async Task<bool> ComecaFaxina(Faxina faxina)
+        {
+            try
+            {
+                var jsonRecado = JsonConvert.SerializeObject(faxina);
+
+                using (var httpClient = new HttpClient())
+                {
+                    HttpRequestMessage message = new HttpRequestMessage(HttpMethod.Post, BaseURL + "/datasnap/rest/TServerMethods1/ComecaFaxina");
+                    message.Content = new StringContent(jsonRecado, Encoding.UTF8, "application/json");
+
+                    HttpResponseMessage response = await httpClient.SendAsync(message);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var teste = response.Content.ReadAsStringAsync().Result;
+                        if (teste.Contains("ERRO"))
+                            return false;
+                        else
+                            return true;
+                    }
+                }
+                return false;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public async Task<bool> TerminaFaxina(Faxina faxina)
+        {
+            try
+            {
+                var jsonRecado = JsonConvert.SerializeObject(faxina);
+
+                using (var httpClient = new HttpClient())
+                {
+                    HttpRequestMessage message = new HttpRequestMessage(HttpMethod.Post, BaseURL + "/datasnap/rest/TServerMethods1/FinalizaFaxina");
+                    message.Content = new StringContent(jsonRecado, Encoding.UTF8, "application/json");
+
+                    HttpResponseMessage response = await httpClient.SendAsync(message);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var teste = response.Content.ReadAsStringAsync().Result;
+                        if (teste.Contains("ERRO"))
+                            return false;
+                        else
+                            return true;
+                    }
+                }
+                return false;
+            }
+            catch (Exception e)
+            {
+                throw e;
             }
         }
 
@@ -158,8 +238,7 @@ namespace CamareiraFacil.Service
             }
             catch (Exception e)
             {
-                //Console.WriteLine(e.Message.ToString());
-                throw;
+                throw e;
             }
         }
 
@@ -186,8 +265,7 @@ namespace CamareiraFacil.Service
             }
             catch (Exception e)
             {
-                //Console.WriteLine(e.Message.ToString());
-                throw;
+                throw e;
             }
         }
     }

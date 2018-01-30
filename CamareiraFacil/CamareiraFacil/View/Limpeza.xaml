@@ -7,9 +7,13 @@
     <ContentPage.Content>
         <StackLayout>
             <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
-                <Picker x:Name="pckApartamentos" Title="Apartamento" />
+                <Picker x:Name="pckApartamentos" 
+                        Title="Apartamento" 
+                        ItemsSource="{Binding listaApartamentos}"
+                        ItemDisplayBinding="{Binding NApto}"
+                        SelectedIndexChanged="pckApartamentos_SelectedIndexChanged"/>
             </StackLayout>            
-            <ListView x:Name="lstView" SeparatorVisibility="None" IsEnabled="False" ItemTapped="lstView_ItemTapped" ItemsSource="{Binding .}"> 
+            <ListView x:Name="lstView" SeparatorVisibility="None" ItemTapped="lstView_ItemTapped" ItemsSource="{Binding .}"> 
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>

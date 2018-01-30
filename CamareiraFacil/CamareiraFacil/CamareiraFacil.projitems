@@ -17,13 +17,20 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Model\Apartamento.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\DataSnapResponse.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\Faxina.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\Funcionario.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\ItemLancamento.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\ItemPDV.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\LocaisManutencao.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\OrdemServico.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\Produto.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\Recado.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\Setor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Service\ApiCamareiraFacil.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)View\Configuracao.xaml.cs">
+      <DependentUpon>Configuracao.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)View\Consumo.xaml.cs">
       <DependentUpon>Consumo.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -32,6 +39,7 @@
       <DependentUpon>Limpeza.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)View\MapaOcupacao.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)View\Mensagem.xaml.cs">
       <DependentUpon>Mensagem.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -81,6 +89,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)View\Servico.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)View\Configuracao.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

@@ -16,6 +16,18 @@ namespace CamareiraFacil.View
             consumofrigobar.Clicked += btnConsumo_Clicked;
             mensagem.Clicked += btnMensagem_Clicked;
             ordemservico.Clicked += btnServico_Clicked;
+            mapa.Clicked += Mapa_Clicked;
+            configuracao.Clicked += Configuracao_Clicked;
+        }
+
+        private void Configuracao_Clicked(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new Configuracao());
+        }
+
+        private void Mapa_Clicked(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new MapaOcupacao());
         }
 
         private void btnServico_Clicked(object sender, EventArgs e)
@@ -37,8 +49,5 @@ namespace CamareiraFacil.View
         {
             Navigation.PushAsync(new Mensagem());
         }
-
-
-
     }
 }

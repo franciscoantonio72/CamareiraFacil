@@ -1,4 +1,5 @@
-﻿using CamareiraFacil.Model;
+﻿using Acr.UserDialogs;
+using CamareiraFacil.Model;
 using CamareiraFacil.Service;
 using System;
 using System.Collections.Generic;
@@ -17,7 +18,7 @@ namespace CamareiraFacil.View
 	{
         private List<ItemPDV> produtos;
         private List<Apartamento> apartamentos;
-        public ObservableCollection<ItemLancamento> ListaItens { get; }
+        public ObservableCollection<ItemLancamento> ListaItens { get; set; }
         public ItemPDV produto;
         public Apartamento apartamento;
 
@@ -25,18 +26,35 @@ namespace CamareiraFacil.View
 		{
 			InitializeComponent ();
 
+            CarregarDados();
+        }
+
+        private async void CarregarDados()
+        {
+            using (var objDialog = UserDialogs.Instance.Loading("Carregando..."))
+            {
+                await Task.Delay(2000);
+            }
+
             ListaItens = new ObservableCollection<ItemLancamento>();
             lstView.ItemsSource = ListaItens;
 
-            ApiCamareiraFacil api = new ApiCamareiraFacil();
-            produtos = api.GetItensPDV("0007");
-            pckProdutos.ItemsSource = produtos;
+            try
+            {
+                ApiCamareiraFacil api = new ApiCamareiraFacil();
+                produtos = api.GetItensPDV("0007");
+                pckProdutos.ItemsSource = produtos;
 
-            apartamentos = api.GetApartamentos();
-            pckApartamentos.ItemsSource = apartamentos;
+                apartamentos = api.GetApartamentos();
+                pckApartamentos.ItemsSource = apartamentos;
 
-            List<String> pontos = new List<string> {"Frigobar"};
-            pckPontoVenda.ItemsSource = pontos;
+                List<String> pontos = new List<string> { "Frigobar" };
+                pckPontoVenda.ItemsSource = pontos;
+            }
+            catch (Exception E)
+            {
+                await DisplayAlert("Erro", "Erro: " + E.Message, "OK");
+            }
         }
 
         private void btnAdicionar_Clicked(object sender, EventArgs e)
@@ -48,7 +66,7 @@ namespace CamareiraFacil.View
                                 Cod_Emp = "001",
                                 Codigo_Apto = apartamento.NApto,
                                 Codigo_PDV = "0007",
-                                Operador = "** TEC-SOFT **"
+                                Operador = "** MOBILE **"
             });
         }
 

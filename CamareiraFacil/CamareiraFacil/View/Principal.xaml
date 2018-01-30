@@ -9,6 +9,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="150"></RowDefinition>
                 <RowDefinition Height="150"></RowDefinition>
+                <RowDefinition Height="150"></RowDefinition>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"></ColumnDefinition>
@@ -100,6 +101,56 @@
                               TextColor="Black"
                               WidthRequest="175"
                               Grid.Row="1"
+                              Grid.Column="1">
+                <controls:ImageButton.Source>
+                    <OnPlatform x:TypeArguments="ImageSource">
+                        <OnPlatform.iOS>
+                            <FileImageSource File="" />
+                        </OnPlatform.iOS>
+                        <OnPlatform.Android>
+                            <FileImageSource File="Notepad.png" />
+                        </OnPlatform.Android>
+                        <OnPlatform.WinPhone>
+                            <FileImageSource File="" />
+                        </OnPlatform.WinPhone>
+                    </OnPlatform>
+                </controls:ImageButton.Source>
+            </controls:ImageButton>
+            <controls:ImageButton x:Name="mapa"
+                              BackgroundColor="Transparent"
+                              HeightRequest="75"
+                              ImageHeightRequest="150"
+                              ImageWidthRequest="150"
+                              Orientation="ImageOnTop"
+                              Text="Ocupação"
+                              TextColor="Black"
+                              WidthRequest="175"
+                              Grid.Row="2"
+                              Grid.Column="0">
+                <controls:ImageButton.Source>
+                    <OnPlatform x:TypeArguments="ImageSource">
+                        <OnPlatform.iOS>
+                            <FileImageSource File="" />
+                        </OnPlatform.iOS>
+                        <OnPlatform.Android>
+                            <FileImageSource File="Notepad.png" />
+                        </OnPlatform.Android>
+                        <OnPlatform.WinPhone>
+                            <FileImageSource File="" />
+                        </OnPlatform.WinPhone>
+                    </OnPlatform>
+                </controls:ImageButton.Source>
+            </controls:ImageButton>
+            <controls:ImageButton x:Name="configuracao"
+                              BackgroundColor="Transparent"
+                              HeightRequest="75"
+                              ImageHeightRequest="150"
+                              ImageWidthRequest="150"
+                              Orientation="ImageOnTop"
+                              Text="Configuração"
+                              TextColor="Black"
+                              WidthRequest="175"
+                              Grid.Row="2"
                               Grid.Column="1">
                 <controls:ImageButton.Source>
                     <OnPlatform x:TypeArguments="ImageSource">

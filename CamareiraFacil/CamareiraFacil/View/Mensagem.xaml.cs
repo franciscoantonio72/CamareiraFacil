@@ -1,4 +1,5 @@
-﻿using CamareiraFacil.Model;
+﻿using Acr.UserDialogs;
+using CamareiraFacil.Model;
 using CamareiraFacil.Service;
 using System;
 using System.Collections.Generic;
@@ -20,6 +21,16 @@ namespace CamareiraFacil.View
         public Mensagem()
         {
             InitializeComponent();
+
+            CarregarDados();
+        }
+
+        private async void CarregarDados()
+        {
+            using (var objDialog = UserDialogs.Instance.Loading("Carregando..."))
+            {
+                await Task.Delay(2000);
+            }
 
             ApiCamareiraFacil api = new ApiCamareiraFacil();
             funcionarios = api.GetFuncionarios();
