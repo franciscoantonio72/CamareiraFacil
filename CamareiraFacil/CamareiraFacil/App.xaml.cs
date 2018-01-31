@@ -1,4 +1,6 @@
-﻿using CamareiraFacil.View;
+﻿using Android.Content;
+using CamareiraFacil.Model;
+using CamareiraFacil.View;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +16,15 @@ namespace CamareiraFacil
 		{
 			InitializeComponent();
 
-			MainPage = new NavigationPage(new Principal());
+            AppPreferences appp = new AppPreferences(Forms.Context);
+            if (appp.getAcessKey("IP") != "" && appp.getAcessKey("PORTA") != "")
+            {
+                MainPage = new NavigationPage(new Principal());
+            }
+            else
+            {
+                MainPage = new NavigationPage(new Configuracao());
+            }
 		}
 
 		protected override void OnStart ()

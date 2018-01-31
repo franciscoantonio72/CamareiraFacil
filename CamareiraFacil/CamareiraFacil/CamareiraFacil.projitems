@@ -16,6 +16,7 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Model\Apartamento.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\AppPreferences.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\DataSnapResponse.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\Faxina.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\Funcionario.cs" />

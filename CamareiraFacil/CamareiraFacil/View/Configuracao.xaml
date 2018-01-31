@@ -18,8 +18,8 @@
                 <Entry x:Name="edtPorta" Text="6051"></Entry>
             </StackLayout>
             <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
-                <Button x:Name="btnGravar" Text="Gravar"></Button>
-                <Button x:Name="btnCancelar" Text="Cancelar"></Button>
+                <Button x:Name="btnGravar" Text="Gravar" Clicked="btnGravar_Clicked"></Button>
+                <Button x:Name="btnCancelar" Text="Cancelar" Clicked="btnCancelar_Clicked"></Button>
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>
