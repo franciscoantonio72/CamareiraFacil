@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CamareiraFacil.View.Login">
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout Padding="50" Spacing="20" VerticalOptions="CenterAndExpand">
+                <StackLayout>
+                    <Image Source="logotecsoft.png"/>
+                </StackLayout>
+                <!--<Entry x:Name="edtUsuario" Placeholder="usuário" />-->
+                <Picker x:Name="pckUsuarios" ItemsSource="{Binding listaUsuario}" ItemDisplayBinding="{Binding Descricao}"></Picker>
+                <Entry x:Name="edtSenha" Placeholder="senha" IsPassword="True"/>
+                <Button x:Name="btnLogin" Text="Login" TextColor="White" BackgroundColor="#39acdc" Clicked="btnLogin_Clicked"></Button>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

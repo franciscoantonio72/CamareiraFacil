@@ -27,6 +27,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Model\Produto.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\Recado.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\Setor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\Usuario.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Service\ApiCamareiraFacil.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)View\Configuracao.xaml.cs">
       <DependentUpon>Configuracao.xaml</DependentUpon>
@@ -38,6 +39,10 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)View\Limpeza.xaml.cs">
       <DependentUpon>Limpeza.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)View\Login.xaml.cs">
+      <DependentUpon>Login.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)View\MapaOcupacao.cs" />
@@ -96,6 +101,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)View\Configuracao.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)View\Login.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

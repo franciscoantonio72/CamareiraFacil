@@ -55,10 +55,19 @@ namespace CamareiraFacil.View
             appp.saveAcessKey("PORTA", edtPorta.Text);
             appp.saveAcessKey("SETOR", setor.Codigo);
 
-            Page original = App.Current.MainPage.Navigation.NavigationStack.Last();
-            App.Current.MainPage.Navigation.PopAsync().ConfigureAwait(false);
-            App.Current.MainPage.Navigation.PushAsync(new Principal());
-            App.Current.MainPage.Navigation.RemovePage(original);
+            if (appp.getAcessKey("CONFIGURADO") == "")
+            {
+                appp.saveAcessKey("CONFIGURADO", "SIM");
+
+                Page original = App.Current.MainPage.Navigation.NavigationStack.Last();
+                App.Current.MainPage.Navigation.PopAsync().ConfigureAwait(false);
+                App.Current.MainPage.Navigation.PushAsync(new Login());
+                App.Current.MainPage.Navigation.RemovePage(original);
+            }
+            else
+            {
+                Navigation.PopAsync().ConfigureAwait(false);
+            }
         }
 
         private void btnCancelar_Clicked(object sender, EventArgs e)

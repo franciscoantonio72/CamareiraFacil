@@ -17,9 +17,9 @@ namespace CamareiraFacil
 			InitializeComponent();
 
             AppPreferences appp = new AppPreferences(Forms.Context);
-            if (appp.getAcessKey("IP") != "" && appp.getAcessKey("PORTA") != "")
+            if (appp.getAcessKey("CONFIGURADO") != "")
             {
-                MainPage = new NavigationPage(new Principal());
+                MainPage = new NavigationPage(new Login());
             }
             else
             {
