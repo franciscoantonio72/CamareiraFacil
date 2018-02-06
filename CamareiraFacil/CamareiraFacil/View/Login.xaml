@@ -8,8 +8,6 @@
                 <StackLayout>
                     <Image Source="logotecsoft.png"/>
                 </StackLayout>
-                <!--<Entry x:Name="edtUsuario" Placeholder="usuário" />-->
-                <Picker x:Name="pckUsuarios" ItemsSource="{Binding listaUsuario}" ItemDisplayBinding="{Binding Descricao}"></Picker>
                 <Entry x:Name="edtSenha" Placeholder="senha" IsPassword="True"/>
                 <Button x:Name="btnLogin" Text="Login" TextColor="White" BackgroundColor="#39acdc" Clicked="btnLogin_Clicked"></Button>
             </StackLayout>

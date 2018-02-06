@@ -268,5 +268,31 @@ namespace CamareiraFacil.Service
                 throw e;
             }
         }
+
+        public bool ValidaSenha(string senha)
+        {
+            try
+            {
+                var httpClient = new HttpClient();
+                httpClient.BaseAddress = new Uri(BaseURL);
+                httpClient.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+
+                HttpResponseMessage response = httpClient.GetAsync("datasnap/rest/TServerMethods1/ValidaSenha/" + senha).Result;
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var teste = response.Content.ReadAsStringAsync().Result;
+                    var resultado = JsonConvert.DeserializeObject<DataSnapResponse<Senha>>(teste);
+                    if (resultado.message.Equals("SUCESSO") && resultado.status.Equals("OK"))
+                        return true;
+                }
+                return false;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+
+        }
     }
 }
