@@ -1,16 +1,11 @@
-﻿using Android.Content;
-using CamareiraFacil.Model;
+﻿using CamareiraFacil.Model;
 using CamareiraFacil.View;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 using Xamarin.Forms;
 
 namespace CamareiraFacil
 {
-	public partial class App : Application
+    public partial class App : Application
 	{
 		public App ()
 		{

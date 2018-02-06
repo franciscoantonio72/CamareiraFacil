@@ -33,7 +33,7 @@
                             <FileImageSource File="" />
                         </OnPlatform.iOS>
                         <OnPlatform.Android>
-                            <FileImageSource File="frigobar.png" />
+                            <FileImageSource File="Frigobar.png" />
                         </OnPlatform.Android>
                         <OnPlatform.WinPhone>
                             <FileImageSource File="" />
@@ -58,7 +58,7 @@
                             <FileImageSource File="" />
                         </OnPlatform.iOS>
                         <OnPlatform.Android>
-                            <FileImageSource File="carrinholimpezagalvocar50.png" />
+                            <FileImageSource File="Carrinho.png" />
                         </OnPlatform.Android>
                         <OnPlatform.WinPhone>
                             <FileImageSource File="" />
@@ -83,7 +83,7 @@
                             <FileImageSource File="" />
                         </OnPlatform.iOS>
                         <OnPlatform.Android>
-                            <FileImageSource File="Caixadeferramentas.png" />
+                            <FileImageSource File="Ferramentas.png" />
                         </OnPlatform.Android>
                         <OnPlatform.WinPhone>
                             <FileImageSource File="" />
@@ -133,7 +133,7 @@
                             <FileImageSource File="" />
                         </OnPlatform.iOS>
                         <OnPlatform.Android>
-                            <FileImageSource File="Notepad.png" />
+                            <FileImageSource File="Mapa.png" />
                         </OnPlatform.Android>
                         <OnPlatform.WinPhone>
                             <FileImageSource File="" />
@@ -158,7 +158,7 @@
                             <FileImageSource File="" />
                         </OnPlatform.iOS>
                         <OnPlatform.Android>
-                            <FileImageSource File="Notepad.png" />
+                            <FileImageSource File="Configuracao.png" />
                         </OnPlatform.Android>
                         <OnPlatform.WinPhone>
                             <FileImageSource File="" />

@@ -59,6 +59,12 @@ namespace CamareiraFacil.View
 
         private void btnAdicionar_Clicked(object sender, EventArgs e)
         {
+            if(apartamento.NApto == "")
+            {
+                DisplayAlert("Erro", "Informe o apartamento", "OK");
+                return;
+            }
+
             ListaItens.Add(new ItemLancamento
                                 {Codigo = produto.Codigo,
                                 Descricao = produto.Descricao,

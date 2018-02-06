@@ -7,25 +7,32 @@ using System.Text;
 using System.Net.Http;
 using Newtonsoft.Json;
 using Plugin.Connectivity;
+using Xamarin.Forms;
 
 namespace CamareiraFacil.Service
 {
     public class ApiCamareiraFacil
     {
-        private const string BaseURL = "http://192.168.0.12:6051";
-        private const string BaseURLConsumo = "http://192.168.0.12:6051/datasnap/rest/TServerMethods1/LancaConsumo";
+        private string BaseURL = "http://192.168.0.12:6051";
+        private string BaseURLConsumo = "http://192.168.0.12:6051/datasnap/rest/TServerMethods1/LancaConsumo";
 
         public ApiCamareiraFacil()
         {
             if (!CrossConnectivity.Current.IsConnected)
                 throw new System.ArgumentException("Sem Conectividade", "Erro");
+
+            AppPreferences ap = new AppPreferences(Forms.Context);
+
+            BaseURL = ap.getAcessKey("IP") + ":" + ap.getAcessKey("PORTA");
+            BaseURLConsumo = BaseURL + "/datasnap/rest/TServerMethods1/LancaConsumo";
         }
 
         public List<ItemPDV> GetItensPDV(string pdv)
         {
             try
             {
-                string prsPdv = "0007";
+                //TODO: Alterar para o setor
+                string prsPdv = "0007"; 
                 var httpClient = new HttpClient();
                 httpClient.BaseAddress = new Uri(BaseURL);
                 httpClient.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
@@ -117,7 +124,7 @@ namespace CamareiraFacil.Service
                     if (response.IsSuccessStatusCode)
                     {
                         var teste = response.Content.ReadAsStringAsync().Result;
-                        return true; 
+                        return true;
                     }
                 }
                 return false;
