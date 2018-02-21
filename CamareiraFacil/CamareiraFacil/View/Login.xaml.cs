@@ -5,6 +5,8 @@ using CamareiraFacil.Service;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Acr.UserDialogs;
+using System.Threading.Tasks;
 
 namespace CamareiraFacil.View
 {
@@ -21,6 +23,11 @@ namespace CamareiraFacil.View
 
         private async void btnLogin_Clicked(object sender, EventArgs e)
         {
+            using (var objDialog = UserDialogs.Instance.Loading("Autenticando..."))
+            {
+                await Task.Delay(2000);
+            }
+
             Funcoes funcoes = new Funcoes();
             string lsSenhaCripto = funcoes.Encrypt(edtSenha.Text.Trim());
 

@@ -1,4 +1,5 @@
 ﻿using CamareiraFacil.Model;
+using CamareiraFacil.Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,20 +12,16 @@ namespace CamareiraFacil.View
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Configuracao : ContentPage
     {
-        private List<Setor> listaSetores;
-        private Setor setor;
+        private List<PDv> listaSetores;
+        private PDv pdv;
         private AppPreferences appp;
+        ApiCamareiraFacil api;
 
         public Configuracao()
         {
             InitializeComponent();
 
-            listaSetores = new List<Setor>
-            {
-                new Setor {Codigo="0001", Descricao="Setor 1" },
-                new Setor {Codigo="0002", Descricao="Setor 2" }
-            };
-            pckSetor.ItemsSource = listaSetores;
+            api = new ApiCamareiraFacil();
 
             appp = new AppPreferences(Forms.Context);
 
@@ -33,6 +30,8 @@ namespace CamareiraFacil.View
 
             if (appp.getAcessKey("SETOR") != "")
             {
+                listaSetores = api.GetPDVs();
+
                 foreach (var item in listaSetores)
                 {
                     if (appp.getAcessKey("SETOR") == item.Codigo)
@@ -43,14 +42,22 @@ namespace CamareiraFacil.View
 
         private void pckSetor_SelectedIndexChanged(object sender, EventArgs e)
         {
-            setor = listaSetores[pckSetor.SelectedIndex];
+            pdv = listaSetores[pckSetor.SelectedIndex];
         }
 
         private void btnGravar_Clicked(object sender, EventArgs e)
         {
             appp.saveAcessKey("IP", edtIp.Text);
             appp.saveAcessKey("PORTA", edtPorta.Text);
-            appp.saveAcessKey("SETOR", setor.Codigo);
+            if (pdv == null)
+            {
+                DisplayAlert("Alerta", "Informe o PDV padrão", "OK");
+                ApiCamareiraFacil api_ = new ApiCamareiraFacil();
+                listaSetores = api_.GetPDVs();
+                pckSetor.ItemsSource = listaSetores;
+                return;
+            }
+            appp.saveAcessKey("SETOR", pdv.Codigo);
 
             if (appp.getAcessKey("CONFIGURADO") == "")
             {

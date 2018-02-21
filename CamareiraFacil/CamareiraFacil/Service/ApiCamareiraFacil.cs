@@ -13,15 +13,16 @@ namespace CamareiraFacil.Service
 {
     public class ApiCamareiraFacil
     {
-        private string BaseURL = "http://192.168.0.12:6051";
-        private string BaseURLConsumo = "http://192.168.0.12:6051/datasnap/rest/TServerMethods1/LancaConsumo";
+        private string BaseURL = "http://10.2.25.202:6051";
+        private string BaseURLConsumo = "http://10.2.25.202:6051/datasnap/rest/TServerMethods1/LancaConsumo";
+        AppPreferences ap;
 
         public ApiCamareiraFacil()
         {
             if (!CrossConnectivity.Current.IsConnected)
                 throw new System.ArgumentException("Sem Conectividade", "Erro");
 
-            AppPreferences ap = new AppPreferences(Forms.Context);
+            ap = new AppPreferences(Forms.Context);
 
             BaseURL = ap.getAcessKey("IP") + ":" + ap.getAcessKey("PORTA");
             BaseURLConsumo = BaseURL + "/datasnap/rest/TServerMethods1/LancaConsumo";
@@ -32,7 +33,7 @@ namespace CamareiraFacil.Service
             try
             {
                 //TODO: Alterar para o setor
-                string prsPdv = "0007"; 
+                string prsPdv = ap.getAcessKey("SETOR"); // "0007"; 
                 var httpClient = new HttpClient();
                 httpClient.BaseAddress = new Uri(BaseURL);
                 httpClient.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
@@ -264,6 +265,33 @@ namespace CamareiraFacil.Service
                     var teste = response.Content.ReadAsStringAsync().Result;
 
                     var resultado = JsonConvert.DeserializeObject<DataSnapResponse<List<LocaisManutencao>>>(teste);
+
+                    return resultado.result;
+                }
+
+                return null;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public List<PDv> GetPDVs()
+        {
+            try
+            {
+                var httpClient = new HttpClient();
+                httpClient.BaseAddress = new Uri(BaseURL);
+                httpClient.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+
+                HttpResponseMessage response = httpClient.GetAsync("datasnap/rest/TServerMethods1/BuscarPDVs").Result;
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var teste = response.Content.ReadAsStringAsync().Result;
+
+                    var resultado = JsonConvert.DeserializeObject<DataSnapResponse<List<PDv>>>(teste);
 
                     return resultado.result;
                 }

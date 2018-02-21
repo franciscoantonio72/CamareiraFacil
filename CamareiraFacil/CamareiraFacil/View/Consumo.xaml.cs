@@ -21,10 +21,13 @@ namespace CamareiraFacil.View
         public ObservableCollection<ItemLancamento> ListaItens { get; set; }
         public ItemPDV produto;
         public Apartamento apartamento;
+        private AppPreferences app;
 
         public Consumo ()
 		{
 			InitializeComponent ();
+
+            app = new AppPreferences(Forms.Context);
 
             CarregarDados();
         }
@@ -42,7 +45,7 @@ namespace CamareiraFacil.View
             try
             {
                 ApiCamareiraFacil api = new ApiCamareiraFacil();
-                produtos = api.GetItensPDV("0007");
+                produtos = api.GetItensPDV(app.getAcessKey("SETOR"));
                 pckProdutos.ItemsSource = produtos;
 
                 apartamentos = api.GetApartamentos();
@@ -66,13 +69,13 @@ namespace CamareiraFacil.View
             }
 
             ListaItens.Add(new ItemLancamento
-                                {Codigo = produto.Codigo,
-                                Descricao = produto.Descricao,
-                                Quantidade = Convert.ToDouble(edtQuantidade.Text),
-                                Cod_Emp = "001",
-                                Codigo_Apto = apartamento.NApto,
-                                Codigo_PDV = "0007",
-                                Operador = "** MOBILE **"
+            { Codigo = produto.Codigo,
+                Descricao = produto.Descricao,
+                Quantidade = Convert.ToDouble(edtQuantidade.Text),
+                Cod_Emp = "001",
+                Codigo_Apto = apartamento.NApto,
+                Codigo_PDV = "0007",
+                Operador = app.getAcessKey("USUARIO")
             });
         }
 

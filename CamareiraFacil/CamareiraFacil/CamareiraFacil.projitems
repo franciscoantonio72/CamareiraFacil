@@ -25,10 +25,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)Model\ItemPDV.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\LocaisManutencao.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\OrdemServico.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\PDv.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\Produto.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\Recado.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\Senha.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Model\Setor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\Usuario.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Service\ApiCamareiraFacil.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)View\Configuracao.xaml.cs">
