@@ -93,6 +93,7 @@ namespace CamareiraFacil.View
             }
             else
             {
+                await DisplayAlert("", "Consumo lançado", "OK");
                 await Navigation.PopAsync().ConfigureAwait(false);
             }
         }

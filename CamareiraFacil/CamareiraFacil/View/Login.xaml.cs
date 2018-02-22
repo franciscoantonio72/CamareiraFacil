@@ -36,7 +36,7 @@ namespace CamareiraFacil.View
                 ApiCamareiraFacil apiApto = new ApiCamareiraFacil();
                 if (apiApto.ValidaSenha(lsSenhaCripto))
                 {
-                    app.saveAcessKey("USUARIO", "");
+                    app.saveAcessKey("USUARIO", "MOBILE");
 
                     Page original = App.Current.MainPage.Navigation.NavigationStack.Last();
                     await App.Current.MainPage.Navigation.PopAsync().ConfigureAwait(false);

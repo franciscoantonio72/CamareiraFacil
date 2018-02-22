@@ -15,13 +15,10 @@ namespace CamareiraFacil.View
         private List<PDv> listaSetores;
         private PDv pdv;
         private AppPreferences appp;
-        ApiCamareiraFacil api;
 
         public Configuracao()
         {
             InitializeComponent();
-
-            api = new ApiCamareiraFacil();
 
             appp = new AppPreferences(Forms.Context);
 
@@ -30,6 +27,7 @@ namespace CamareiraFacil.View
 
             if (appp.getAcessKey("SETOR") != "")
             {
+                ApiCamareiraFacil api = new ApiCamareiraFacil();
                 listaSetores = api.GetPDVs();
 
                 foreach (var item in listaSetores)
