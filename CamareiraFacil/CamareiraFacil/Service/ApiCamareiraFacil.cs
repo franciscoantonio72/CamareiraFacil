@@ -82,6 +82,32 @@ namespace CamareiraFacil.Service
             }
         }
 
+        public List<Apartamento> GetApartamentosOcupados()
+        {
+            try
+            {
+                var httpClient = new HttpClient();
+                httpClient.BaseAddress = new Uri(BaseURL);
+                httpClient.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+
+                HttpResponseMessage response = httpClient.GetAsync("datasnap/rest/TServerMethods1/BuscarApartamentos").Result;
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var teste = response.Content.ReadAsStringAsync().Result;
+
+                    var resultado = JsonConvert.DeserializeObject<DataSnapResponse<List<Apartamento>>>(teste);
+
+                    return resultado.result;
+                }
+                return null;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
         public async Task<bool> LancaConsumo(ObservableCollection<ItemLancamento> listaItens)
         {
             try
@@ -304,7 +330,7 @@ namespace CamareiraFacil.Service
             }
         }
 
-        public bool ValidaSenha(string senha)
+        public List<Funcionario> ValidaSenha(string senha)
         {
             try
             {
@@ -317,11 +343,10 @@ namespace CamareiraFacil.Service
                 if (response.IsSuccessStatusCode)
                 {
                     var teste = response.Content.ReadAsStringAsync().Result;
-                    var resultado = JsonConvert.DeserializeObject<DataSnapResponse<Senha>>(teste);
-                    if (resultado.message.Equals("SUCESSO") && resultado.status.Equals("OK"))
-                        return true;
+                    var resultado = JsonConvert.DeserializeObject<DataSnapResponse<List<Funcionario>>>(teste);
+                    return resultado.result;
                 }
-                return false;
+                return null;
             }
             catch (Exception e)
             {

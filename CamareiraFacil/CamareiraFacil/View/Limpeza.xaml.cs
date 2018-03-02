@@ -39,7 +39,7 @@ namespace CamareiraFacil.View
             try
             {
                 ApiCamareiraFacil apiApto = new ApiCamareiraFacil();
-                listaApartamentos = apiApto.GetApartamentos();
+                listaApartamentos = apiApto.GetApartamentosOcupados();
             }
             catch (Exception ex)
             {

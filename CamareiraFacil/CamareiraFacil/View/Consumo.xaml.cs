@@ -48,7 +48,7 @@ namespace CamareiraFacil.View
                 produtos = api.GetItensPDV(app.getAcessKey("SETOR"));
                 pckProdutos.ItemsSource = produtos;
 
-                apartamentos = api.GetApartamentos();
+                apartamentos = api.GetApartamentosOcupados();
                 pckApartamentos.ItemsSource = apartamentos;
 
                 List<String> pontos = new List<string> { "Frigobar" };
@@ -74,7 +74,7 @@ namespace CamareiraFacil.View
                 Quantidade = Convert.ToDouble(edtQuantidade.Text),
                 Cod_Emp = "001",
                 Codigo_Apto = apartamento.NApto,
-                Codigo_PDV = "0007",
+                Codigo_PDV = app.getAcessKey("SETOR"),
                 Operador = app.getAcessKey("USUARIO")
             });
         }
