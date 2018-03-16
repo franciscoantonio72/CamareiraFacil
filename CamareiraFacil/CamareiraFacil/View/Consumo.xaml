@@ -6,7 +6,7 @@
     <ContentPage.Content>
         <StackLayout>
             <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
-                <Picker x:Name="pckPontoVenda" Title="Ponto de Venda" />
+                <Picker x:Name="pckPontoVenda" Title="Informe o Ponto" ItemsSource="{Binding pontos}" ItemDisplayBinding="{Binding Descricao}" SelectedIndexChanged="pckPontoVenda_SelectedIndexChanged"/>
             </StackLayout>
             <StackLayout>
                 <Label Text="Produto"/>

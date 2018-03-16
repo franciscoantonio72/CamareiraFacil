@@ -29,11 +29,11 @@ namespace CamareiraFacil.View
             {
                 ApiCamareiraFacil api = new ApiCamareiraFacil();
                 listaSetores = api.GetPDVs();
-
-                foreach (var item in listaSetores)
+                pckSetor.ItemsSource = listaSetores;
+                for (int i = 0; i < listaSetores.Count; i++)
                 {
-                    if (appp.getAcessKey("SETOR") == item.Codigo)
-                        pckSetor.ItemsSource.IndexOf(item);
+                    if (listaSetores[i].Codigo == appp.getAcessKey("SETOR"))
+                        pckSetor.SelectedIndex = i;
                 }
             }
         }

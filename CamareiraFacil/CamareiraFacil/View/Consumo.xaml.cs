@@ -18,9 +18,11 @@ namespace CamareiraFacil.View
 	{
         private List<ItemPDV> produtos;
         private List<Apartamento> apartamentos;
+        private List<PDv> pontos;
         public ObservableCollection<ItemLancamento> ListaItens { get; set; }
         public ItemPDV produto;
         public Apartamento apartamento;
+        public PDv ponto;
         private AppPreferences app;
 
         public Consumo ()
@@ -51,8 +53,13 @@ namespace CamareiraFacil.View
                 apartamentos = api.GetApartamentosOcupados();
                 pckApartamentos.ItemsSource = apartamentos;
 
-                List<String> pontos = new List<string> { "Frigobar" };
+                pontos = api.GetPDVs();
                 pckPontoVenda.ItemsSource = pontos;
+                for (int i = 0; i < pontos.Count; i++)
+                {
+                    if (pontos[i].Codigo == app.getAcessKey("SETOR"))
+                        pckPontoVenda.SelectedIndex = i;
+                }
             }
             catch (Exception E)
             {
@@ -62,7 +69,7 @@ namespace CamareiraFacil.View
 
         private void btnAdicionar_Clicked(object sender, EventArgs e)
         {
-            if(apartamento.NApto == "")
+            if(apartamento == null || apartamento.NApto == "")
             {
                 DisplayAlert("Erro", "Informe o apartamento", "OK");
                 return;
@@ -106,6 +113,14 @@ namespace CamareiraFacil.View
         private void pckApartamentos_SelectedIndexChanged(object sender, EventArgs e)
         {
             apartamento = apartamentos[pckApartamentos.SelectedIndex];
+        }
+
+        private void pckPontoVenda_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ApiCamareiraFacil api = new ApiCamareiraFacil();
+            ponto = pontos[pckPontoVenda.SelectedIndex];
+            produtos = api.GetItensPDV(ponto.Descricao);
+            pckProdutos.ItemsSource = produtos;
         }
     }
 }
