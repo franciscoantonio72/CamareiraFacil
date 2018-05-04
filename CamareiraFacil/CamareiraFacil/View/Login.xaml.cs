@@ -38,6 +38,7 @@ namespace CamareiraFacil.View
                 if (funcionarios != null)
                 {
                     app.saveAcessKey("USUARIO", funcionarios.FirstOrDefault().Descricao);
+                    app.saveAcessKey("CODUSUARIO", funcionarios.FirstOrDefault().Codigo);
 
                     Page original = App.Current.MainPage.Navigation.NavigationStack.Last();
                     await App.Current.MainPage.Navigation.PopAsync().ConfigureAwait(false);

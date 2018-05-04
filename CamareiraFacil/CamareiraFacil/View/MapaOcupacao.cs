@@ -20,6 +20,20 @@ namespace CamareiraFacil.View
         Style desocupadoStyle;
         Style sujoStyle;
         Style bloqueadoStyle;
+        Style arrumacaoStyle;
+        Color corFundoO;
+        Color corTextoO;
+        Color corFundoD;
+        Color corTextoD;
+        Color corFundoS;
+        Color corTextoS;
+        Color corFundoI;
+        Color corTextoI;
+        Color corFundoB;
+        Color corTextoB;
+        Color corFundoA;
+        Color corTextoA;
+
         public MapaOcupacao()
         {
             ApiCamareiraFacil api = new ApiCamareiraFacil();
@@ -27,6 +41,8 @@ namespace CamareiraFacil.View
             {
                 listaApartamento = api.GetApartamentosOcupados();
                 listaApartamentoOriginal = api.GetApartamentosOcupados();
+
+                CarregarCores();
             }
             catch (Exception E)
             {
@@ -42,8 +58,8 @@ namespace CamareiraFacil.View
             ocupadoStyle = new Style(typeof(Button))
             {
                 Setters = {
-                      new Setter { Property = Button.BackgroundColorProperty, Value = Color.FromHex ("#E8AD00") },
-                      new Setter { Property = Button.TextColorProperty, Value = Color.White },
+                      new Setter { Property = Button.BackgroundColorProperty, Value = corFundoO  },
+                      new Setter { Property = Button.TextColorProperty, Value = corTextoO  },
                       new Setter { Property = Button.BorderRadiusProperty, Value = 0 },
                       new Setter { Property = Button.FontSizeProperty, Value = Device.GetNamedSize(NamedSize.Medium, typeof(Button)) }
                 }
@@ -51,8 +67,8 @@ namespace CamareiraFacil.View
             interditadoStyle = new Style(typeof(Button))
             {
                 Setters = {
-                      new Setter { Property = Button.BackgroundColorProperty, Value = Color.FromHex ("#ddd") },
-                      new Setter { Property = Button.TextColorProperty, Value = Color.Black },
+                      new Setter { Property = Button.BackgroundColorProperty, Value = corFundoI },
+                      new Setter { Property = Button.TextColorProperty, Value = corTextoI },
                       new Setter { Property = Button.BorderRadiusProperty, Value = 0 },
                       new Setter { Property = Button.FontSizeProperty, Value = Device.GetNamedSize(NamedSize.Medium, typeof(Button)) }
                 }
@@ -60,8 +76,8 @@ namespace CamareiraFacil.View
             desocupadoStyle = new Style(typeof(Button))
             {
                 Setters = {
-                      new Setter { Property = Button.BackgroundColorProperty, Value = Color.Green /* Color.FromHex ("#E8AD00")*/ },
-                      new Setter { Property = Button.TextColorProperty, Value = Color.White },
+                      new Setter { Property = Button.BackgroundColorProperty, Value = corFundoD },
+                      new Setter { Property = Button.TextColorProperty, Value = corTextoD },
                       new Setter { Property = Button.BorderRadiusProperty, Value = 0 },
                       new Setter { Property = Button.FontSizeProperty, Value = Device.GetNamedSize(NamedSize.Medium, typeof(Button))}
                 }
@@ -69,8 +85,8 @@ namespace CamareiraFacil.View
             sujoStyle = new Style(typeof(Button))
             {
                 Setters = {
-                      new Setter { Property = Button.BackgroundColorProperty, Value = Color.Salmon },
-                      new Setter { Property = Button.TextColorProperty, Value = Color.WhiteSmoke },
+                      new Setter { Property = Button.BackgroundColorProperty, Value = corFundoS },
+                      new Setter { Property = Button.TextColorProperty, Value = corTextoS },
                       new Setter { Property = Button.BorderRadiusProperty, Value = 0 },
                       new Setter { Property = Button.FontSizeProperty, Value = Device.GetNamedSize(NamedSize.Medium, typeof(Button))}
                 }
@@ -78,8 +94,18 @@ namespace CamareiraFacil.View
             bloqueadoStyle = new Style(typeof(Button))
             {
                 Setters = {
-                      new Setter { Property = Button.BackgroundColorProperty, Value = Color.Red  /* Color.FromHex ("#E8AD00")*/ },
-                      new Setter { Property = Button.TextColorProperty, Value = Color.White },
+                      new Setter { Property = Button.BackgroundColorProperty, Value = corFundoB },
+                      new Setter { Property = Button.TextColorProperty, Value = corTextoB },
+                      new Setter { Property = Button.BorderRadiusProperty, Value = 0 },
+                      new Setter { Property = Button.FontSizeProperty, Value = Device.GetNamedSize(NamedSize.Medium, typeof(Button))}
+                }
+            };
+
+            arrumacaoStyle = new Style(typeof(Button))
+            {
+                Setters = {
+                      new Setter { Property = Button.BackgroundColorProperty, Value = corFundoA },
+                      new Setter { Property = Button.TextColorProperty, Value = corTextoA },
                       new Setter { Property = Button.BorderRadiusProperty, Value = 0 },
                       new Setter { Property = Button.FontSizeProperty, Value = Device.GetNamedSize(NamedSize.Medium, typeof(Button))}
                 }
@@ -231,6 +257,45 @@ namespace CamareiraFacil.View
         private void TodosButton_Clicked(object sender, EventArgs e)
         {
             //
+        }
+
+        private void CarregarCores()
+        {
+            var lista = listaApartamentoOriginal.GroupBy(g => g.Situacao).ToList();
+
+            foreach (var item in lista)
+            {
+                if (item.Key.Equals("O"))
+                {
+                    corTextoO = Color.FromHex(int.Parse(item.FirstOrDefault().CorTexto).ToString("X"));
+                    corFundoO = Color.FromHex(int.Parse(item.FirstOrDefault().CorFundo).ToString("X"));
+                } else
+                if (item.Key.Equals("D"))
+                {
+                    corTextoD = Color.FromHex(int.Parse(item.FirstOrDefault().CorTexto).ToString("X"));
+                    corFundoD = Color.FromHex(int.Parse(item.FirstOrDefault().CorFundo).ToString("X"));
+                } else
+                if (item.Key.Equals("S"))
+                {
+                    corTextoS = Color.FromHex(int.Parse(item.FirstOrDefault().CorTexto).ToString("X"));
+                    corFundoS = Color.FromHex(int.Parse(item.FirstOrDefault().CorFundo).ToString("X"));
+                } else
+                if (item.Key.Equals("I"))
+                {
+                    corTextoI = Color.FromHex(int.Parse(item.FirstOrDefault().CorTexto).ToString("X"));
+                    corFundoI = Color.FromHex(int.Parse(item.FirstOrDefault().CorFundo).ToString("X"));
+                } else
+                if (item.Key.Equals("A"))
+                {
+                    corTextoA = Color.FromHex(int.Parse(item.FirstOrDefault().CorTexto).ToString("X"));
+                    corFundoA = Color.FromHex(int.Parse(item.FirstOrDefault().CorFundo).ToString("X"));
+                } else
+                if (item.Key.Equals("B"))
+                {
+                    corTextoB = Color.FromHex(int.Parse(item.FirstOrDefault().CorTexto).ToString("X"));
+                    corFundoB = Color.FromHex(int.Parse(item.FirstOrDefault().CorFundo).ToString("X"));
+                };
+            }
         }
     }
 }

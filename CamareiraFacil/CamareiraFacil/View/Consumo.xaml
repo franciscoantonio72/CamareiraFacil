@@ -57,7 +57,6 @@
             </StackLayout>
             <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
                 <Button x:Name="btnOK" Text="OK" Clicked="btnOK_Clicked" />
-                <Button x:Name="btnCancelar" Text="Cancelar" Clicked="btnCancelar_Clicked" />
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>

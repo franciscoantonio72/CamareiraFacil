@@ -8,5 +8,7 @@ namespace CamareiraFacil.Model
     {
         public String NApto { get; set; }
         public string Situacao { get; set; }
+        public string CorTexto { get; set; }
+        public string CorFundo { get; set; }
     }
 }

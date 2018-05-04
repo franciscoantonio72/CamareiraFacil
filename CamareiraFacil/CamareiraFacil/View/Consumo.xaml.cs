@@ -50,7 +50,7 @@ namespace CamareiraFacil.View
                 produtos = api.GetItensPDV(app.getAcessKey("SETOR"));
                 pckProdutos.ItemsSource = produtos;
 
-                apartamentos = api.GetApartamentosOcupados();
+                apartamentos = api.GetApartamentosOcupados().Where( w => w.Situacao.Equals("O")).ToList();
                 pckApartamentos.ItemsSource = apartamentos;
 
                 pontos = api.GetPDVs();
@@ -103,11 +103,6 @@ namespace CamareiraFacil.View
                 await DisplayAlert("", "Consumo lançado", "OK");
                 await Navigation.PopAsync().ConfigureAwait(false);
             }
-        }
-
-        private void btnCancelar_Clicked(object sender, EventArgs e)
-        {
-            Navigation.PopAsync().ConfigureAwait(false);
         }
 
         private void pckApartamentos_SelectedIndexChanged(object sender, EventArgs e)

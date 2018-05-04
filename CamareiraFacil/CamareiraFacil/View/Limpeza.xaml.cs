@@ -21,10 +21,13 @@ namespace CamareiraFacil.View
         List<String> listaGravar = new List<string>();
         public Apartamento apartamento;
         List<Apartamento> listaApartamentos;
+        private AppPreferences app;
 
         public Limpeza()
         {
             InitializeComponent();
+
+            app = new AppPreferences(Forms.Context);
 
             CarregarDados();
         }
@@ -39,7 +42,7 @@ namespace CamareiraFacil.View
             try
             {
                 ApiCamareiraFacil apiApto = new ApiCamareiraFacil();
-                listaApartamentos = apiApto.GetApartamentosOcupados();
+                listaApartamentos = apiApto.GetApartamentosOcupados().Where(w => w.Situacao.Equals("S")).ToList();
             }
             catch (Exception ex)
             {
@@ -86,12 +89,12 @@ namespace CamareiraFacil.View
                 Faxina faxina = new Faxina
                 {
                     Cod_emp = "001",
-                    Operador = "** MOBILE **",
+                    Operador = app.getAcessKey("USUARIO"),
                     Historico = "Faxina",
                     Hora = DateTime.Now.ToLongTimeString(),
                     NApto = apartamento.NApto,
                     Hora_Inicial = DateTime.Now.ToLongTimeString(),
-                    Cod_Camareira = "00101"
+                    Cod_Camareira = app.getAcessKey("CODUSUARIO")
                 };
 
                 UserDialogs.Instance.ShowLoading("Gravando...",MaskType.Clear);
@@ -129,12 +132,12 @@ namespace CamareiraFacil.View
                 Faxina faxina = new Faxina
                 {
                     Cod_emp = "001",
-                    Operador = "** MOBILE **",
+                    Operador = app.getAcessKey("USUARIO"),
                     Historico = "Faxina",
                     Hora = DateTime.Now.ToLongTimeString(),
                     NApto = apartamento.NApto,
                     Hora_Final = DateTime.Now.ToLongTimeString(),
-                    Cod_Camareira = "00101"
+                    Cod_Camareira = app.getAcessKey("CODUSUARIO")
                 };
 
                 UserDialogs.Instance.ShowLoading("Gravando...", MaskType.Clear);

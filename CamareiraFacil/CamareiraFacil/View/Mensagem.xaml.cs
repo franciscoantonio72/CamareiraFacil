@@ -17,10 +17,13 @@ namespace CamareiraFacil.View
     {
         public List<Funcionario> funcionarios;
         public Funcionario funcionario;
+        private AppPreferences app;
 
         public Mensagem()
         {
             InitializeComponent();
+
+            app = new AppPreferences(Forms.Context);
 
             CarregarDados();
         }
@@ -47,16 +50,17 @@ namespace CamareiraFacil.View
                 Destinatario = funcionario.Codigo,
                 Data_Cad = DateTime.Now,
                 Hora = DateTime.Now.ToString("HH:mm:ss"),
-                Remetente = "00001"
+                Remetente = app.getAcessKey("CODUSUARIO")
             };
 
             ApiCamareiraFacil api = new ApiCamareiraFacil();
             if (!await api.GravaRecado(recado))
             {
-                DisplayAlert("Recado", "Não foi possível gravar recado", "OK");
+                await DisplayAlert("Recado", "Não foi possível gravar recado", "OK");
             }
             else
             {
+                await DisplayAlert("Recado", "Recado enviado com sucesso!", "OK");
                 await Navigation.PopAsync().ConfigureAwait(false);
             }
         }
