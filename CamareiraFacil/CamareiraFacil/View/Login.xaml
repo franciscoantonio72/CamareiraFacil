@@ -2,6 +2,9 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CamareiraFacil.View.Login">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Icon="Configuracao.png" Name="Menu" Order="Primary" Text="Configurações" Priority="0" Clicked="Menu_Clicked" />
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <ScrollView>
             <StackLayout Padding="50" Spacing="20" VerticalOptions="CenterAndExpand">

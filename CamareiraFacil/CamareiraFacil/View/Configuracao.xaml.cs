@@ -25,7 +25,7 @@ namespace CamareiraFacil.View
             edtIp.Text = (appp.getAcessKey("IP") != "" ? appp.getAcessKey("IP") : "");
             edtPorta.Text = (appp.getAcessKey("PORTA") != "" ? appp.getAcessKey("PORTA") : "");
 
-            if (appp.getAcessKey("SETOR") != "")
+            if (appp.getAcessKey("SETOR") != "" && appp.getAcessKey("CONFIGURADO") != "")
             {
                 ApiCamareiraFacil api = new ApiCamareiraFacil();
                 listaSetores = api.GetPDVs();
@@ -52,7 +52,14 @@ namespace CamareiraFacil.View
                 DisplayAlert("Alerta", "Informe o PDV padrão", "OK");
                 ApiCamareiraFacil api_ = new ApiCamareiraFacil();
                 listaSetores = api_.GetPDVs();
-                pckSetor.ItemsSource = listaSetores;
+                if (listaSetores != null)
+                {
+                    pckSetor.ItemsSource = listaSetores;
+                }
+                else
+                {
+                    DisplayAlert("Alerta", "Lista de PDVs vazia. Verifique o caminho do servidor", "OK");
+                }
                 return;
             }
             appp.saveAcessKey("SETOR", pdv.Codigo);

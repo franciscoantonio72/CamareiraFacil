@@ -55,5 +55,12 @@ namespace CamareiraFacil.View
                 await DisplayAlert("Aviso", "Não foi possível carregar apartamentos. Erro: " + ex.Message, "OK");
             }
         }
+
+        private void Menu_Clicked(object sender, EventArgs e)
+        {
+            app.saveAcessKey("CONFIGURADO", "");
+
+            Navigation.PushAsync(new Configuracao());
+        }
     }
 }

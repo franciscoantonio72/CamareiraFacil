@@ -42,7 +42,7 @@ namespace CamareiraFacil.View
             try
             {
                 ApiCamareiraFacil apiApto = new ApiCamareiraFacil();
-                listaApartamentos = apiApto.GetApartamentosOcupados().Where(w => w.Situacao.Equals("S")).ToList();
+                listaApartamentos = apiApto.GetApartamentosOcupados();
             }
             catch (Exception ex)
             {
