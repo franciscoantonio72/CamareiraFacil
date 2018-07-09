@@ -15,6 +15,7 @@ namespace CamareiraFacil.View
         Button button;
         private List<Apartamento> listaApartamentoOriginal;
         private List<Apartamento> listaApartamento;
+        private List<Apartamento> listaApartamentoCores;
         Style ocupadoStyle;
         Style interditadoStyle;
         Style desocupadoStyle;
@@ -41,6 +42,7 @@ namespace CamareiraFacil.View
             {
                 listaApartamento = api.GetApartamentosOcupados();
                 listaApartamentoOriginal = api.GetApartamentosOcupados();
+                listaApartamentoCores = api.GetCarregarCoresApartamento();
 
                 CarregarCores();
             }
@@ -135,24 +137,27 @@ namespace CamareiraFacil.View
                 VerticalOptions = LayoutOptions.End
             };
 
-            var ocupadoButton = new Button { Text = "O", WidthRequest = 60, Style = ocupadoStyle };
+            var ocupadoButton = new Button { Text = "O", WidthRequest = 55, Style = ocupadoStyle };
             ocupadoButton.Clicked += OcupadoButton_Clicked;
-            var desocupadoButton = new Button { Text = "D", WidthRequest = 60, Style = desocupadoStyle };
+            var desocupadoButton = new Button { Text = "D", WidthRequest = 55, Style = desocupadoStyle };
             desocupadoButton.Clicked += DesocupadoButton_Clicked;
-            var sujoButton = new Button { Text = "S", WidthRequest = 60, Style = sujoStyle };
+            var sujoButton = new Button { Text = "S", WidthRequest = 55, Style = sujoStyle };
             sujoButton.Clicked += SujoButton_Clicked;
-            var interditadoButton = new Button { Text = "I", WidthRequest = 60, Style = interditadoStyle };
+            var interditadoButton = new Button { Text = "I", WidthRequest = 55, Style = interditadoStyle };
             interditadoButton.Clicked += InterditadoButton_Clicked;
-            var bloqueadoButton = new Button { Text = "B", WidthRequest = 60, Style = bloqueadoStyle };
+            var bloqueadoButton = new Button { Text = "B", WidthRequest = 55, Style = bloqueadoStyle };
             bloqueadoButton.Clicked += BloqueadoButton_Clicked;
-            var todosButton = new Button { Text = "T", WidthRequest = 60, Style = bloqueadoStyle };
-            todosButton.Clicked += TodosButton_Clicked;
+            var todosButton = new Button { Text = "T", WidthRequest = 55, Style = bloqueadoStyle };
+            todosButton.Clicked += Arrumacao_Clicked;
+            var arrumacaoButton = new Button { Text = "A", WidthRequest = 55, Style = arrumacaoStyle };
+            arrumacaoButton.Clicked += Arrumacao_Clicked;
             stack2.Children.Add(ocupadoButton);
             stack2.Children.Add(desocupadoButton);
             stack2.Children.Add(sujoButton);
             stack2.Children.Add(interditadoButton);
             stack2.Children.Add(ocupadoButton);
             stack2.Children.Add(bloqueadoButton);
+            stack2.Children.Add(arrumacaoButton);
             stackpricipal.Children.Add(scrol);
             stackpricipal.Children.Add(stack2);
 
@@ -212,11 +217,6 @@ namespace CamareiraFacil.View
 
         async Task CallingApartamentosAsync(string tipo = "")
         {
-            /*
-            listaApartamento.Clear();
-            if (tipo == "")
-                listaApartamento = listaApartamentoOriginal;
-            */
             if (tipo != "")
                 listaApartamento = listaApartamentoOriginal.Where(w => w.Situacao == tipo).ToList();
 
@@ -226,76 +226,103 @@ namespace CamareiraFacil.View
         private void InterditadoButton_Clicked(object sender, EventArgs e)
         {
             CallingApartamentosAsync("I");
-            //throw new NotImplementedException();
         }
 
         private void BloqueadoButton_Clicked(object sender, EventArgs e)
         {
             CallingApartamentosAsync("B");
-            //throw new NotImplementedException();
         }
 
         private void SujoButton_Clicked(object sender, EventArgs e)
         {
             CallingApartamentosAsync("S");
-            //throw new NotImplementedException();
         }
 
         private void DesocupadoButton_Clicked(object sender, EventArgs e)
         {
             CallingApartamentosAsync("D");
-            // throw new NotImplementedException();
         }
 
         private void OcupadoButton_Clicked(object sender, EventArgs e)
         {
             CallingApartamentosAsync("O");
-
-            // listaApartamento.Where(w => w.Situacao == "O");
         }
 
-        private void TodosButton_Clicked(object sender, EventArgs e)
+        private void Arrumacao_Clicked(object sender, EventArgs e)
         {
-            //
+            CallingApartamentosAsync("A");
         }
 
         private void CarregarCores()
         {
-            var lista = listaApartamentoOriginal.GroupBy(g => g.Situacao).ToList();
+            var lista = listaApartamentoCores.GroupBy(g => g.Situacao).ToList();
 
             foreach (var item in lista)
             {
+                var rgbf = new RedGreenBlue(int.Parse(item.FirstOrDefault().CorFundo));
+                var rgbt = new RedGreenBlue(int.Parse(item.FirstOrDefault().CorTexto));
+
                 if (item.Key.Equals("O"))
                 {
-                    corTextoO = Color.FromHex(int.Parse(item.FirstOrDefault().CorTexto).ToString("X"));
-                    corFundoO = Color.FromHex(int.Parse(item.FirstOrDefault().CorFundo).ToString("X"));
+                    corTextoO = rgbt.Color;
+                    corFundoO = rgbf.Color;
                 } else
                 if (item.Key.Equals("D"))
                 {
-                    corTextoD = Color.FromHex(int.Parse(item.FirstOrDefault().CorTexto).ToString("X"));
-                    corFundoD = Color.FromHex(int.Parse(item.FirstOrDefault().CorFundo).ToString("X"));
+                    corTextoD = rgbt.Color;
+                    corFundoD = rgbf.Color;
                 } else
                 if (item.Key.Equals("S"))
                 {
-                    corTextoS = Color.FromHex(int.Parse(item.FirstOrDefault().CorTexto).ToString("X"));
-                    corFundoS = Color.FromHex(int.Parse(item.FirstOrDefault().CorFundo).ToString("X"));
+                    corTextoS = rgbt.Color;
+                    corFundoS = rgbf.Color;
                 } else
                 if (item.Key.Equals("I"))
                 {
-                    corTextoI = Color.FromHex(int.Parse(item.FirstOrDefault().CorTexto).ToString("X"));
-                    corFundoI = Color.FromHex(int.Parse(item.FirstOrDefault().CorFundo).ToString("X"));
+                    corTextoI = rgbt.Color;
+                    corFundoI = rgbf.Color;
                 } else
                 if (item.Key.Equals("A"))
                 {
-                    corTextoA = Color.FromHex(int.Parse(item.FirstOrDefault().CorTexto).ToString("X"));
-                    corFundoA = Color.FromHex(int.Parse(item.FirstOrDefault().CorFundo).ToString("X"));
+                    corTextoA = rgbt.Color;
+                    corFundoA = rgbf.Color;
                 } else
                 if (item.Key.Equals("B"))
                 {
-                    corTextoB = Color.FromHex(int.Parse(item.FirstOrDefault().CorTexto).ToString("X"));
-                    corFundoB = Color.FromHex(int.Parse(item.FirstOrDefault().CorFundo).ToString("X"));
+                    corTextoB = rgbt.Color;
+                    corFundoB = rgbf.Color;
                 };
             }
+        }
+    }
+
+    internal class RedGreenBlue
+    {
+        public byte Red { get; }
+        public byte Green { get; }
+        public byte Blue { get; }
+
+        public Color Color => Color.FromRgb(Red, Green, Blue);
+
+        public RedGreenBlue(byte red, byte green, byte blue)
+        {
+            Red = red;
+            Green = green;
+            Blue = blue;            
+        }
+
+        public RedGreenBlue(string hex)
+        {
+            if (string.IsNullOrEmpty(hex) || hex.Length < 6)
+                throw new Exception("Invalid hex");
+            Blue  = Convert.ToByte(hex.Substring(0, 2), 16);
+            Green = Convert.ToByte(hex.Substring(2, 2), 16);
+            Red = Convert.ToByte(hex.Substring(4, 2), 16);
+        }
+
+        public RedGreenBlue(int value) : this((value).ToString("X6"))
+        {
+
         }
     }
 }

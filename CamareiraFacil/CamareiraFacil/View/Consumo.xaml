@@ -19,7 +19,7 @@
                 <Entry x:Name="edtQuantidade" Placeholder="Quant." Keyboard="Numeric"/>
                 <Button x:Name="btnAdicionar" Text="Adicionar" Clicked="btnAdicionar_Clicked" />
             </StackLayout>
-            <ListView x:Name="lstView" SeparatorVisibility="None" ItemsSource="{Binding ListaItens}">
+            <ListView x:Name="lstView" SeparatorVisibility="Default" ItemsSource="{Binding ListaItens}" ItemSelected="lstView_ItemSelected">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>

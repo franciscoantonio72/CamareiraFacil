@@ -17,10 +17,12 @@ namespace CamareiraFacil.View
 	{
         public LocaisManutencao locais;
         List<LocaisManutencao> listaLocais = new List<LocaisManutencao>();
+        private AppPreferences app;
 
         public Servico ()
 		{
 			InitializeComponent ();
+            app = new AppPreferences(Forms.Context);
 
             CarregarLocaisManutencao();
         }
@@ -56,8 +58,8 @@ namespace CamareiraFacil.View
                 Data_Cad = DateTime.Now,
                 Descricao = edtMensagem.Text,
                 Hora = DateTime.Now.ToString("HH:mm:ss"),
-                Operador = "** MOBILE **",
-                Remetente = "** MOBILE **",
+                Operador = app.getAcessKey("USUARIO"),
+                Remetente = app.getAcessKey("USUARIO"),
                 Status = "A",
                 Setor = locais.Descricao,
                 Cod_LocalManutencao = locais.Codigo

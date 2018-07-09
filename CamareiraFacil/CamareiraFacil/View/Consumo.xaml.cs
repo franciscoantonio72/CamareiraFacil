@@ -13,9 +13,9 @@ using Xamarin.Forms.Xaml;
 
 namespace CamareiraFacil.View
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class Consumo : ContentPage
-	{
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class Consumo : ContentPage
+    {
         private List<ItemPDV> produtos;
         private List<Apartamento> apartamentos;
         private List<PDv> pontos;
@@ -25,9 +25,9 @@ namespace CamareiraFacil.View
         public PDv ponto;
         private AppPreferences app;
 
-        public Consumo ()
-		{
-			InitializeComponent ();
+        public Consumo()
+        {
+            InitializeComponent();
 
             app = new AppPreferences(Forms.Context);
 
@@ -50,7 +50,7 @@ namespace CamareiraFacil.View
                 produtos = api.GetItensPDV(app.getAcessKey("SETOR"));
                 pckProdutos.ItemsSource = produtos;
 
-                apartamentos = api.GetApartamentosOcupados().Where( w => w.Situacao.Equals("O")).ToList();
+                apartamentos = api.GetApartamentosOcupados().Where(w => w.Situacao.Equals("O")).ToList();
                 pckApartamentos.ItemsSource = apartamentos;
 
                 pontos = api.GetPDVs();
@@ -69,14 +69,15 @@ namespace CamareiraFacil.View
 
         private void btnAdicionar_Clicked(object sender, EventArgs e)
         {
-            if(apartamento == null || apartamento.NApto == "")
+            if (apartamento == null || apartamento.NApto == "")
             {
                 DisplayAlert("Erro", "Informe o apartamento", "OK");
                 return;
             }
 
             ListaItens.Add(new ItemLancamento
-            { Codigo = produto.Codigo,
+            {
+                Codigo = produto.Codigo,
                 Descricao = produto.Descricao,
                 Quantidade = Convert.ToDouble(edtQuantidade.Text),
                 Cod_Emp = "001",
@@ -116,6 +117,19 @@ namespace CamareiraFacil.View
             ponto = pontos[pckPontoVenda.SelectedIndex];
             produtos = api.GetItensPDV(ponto.Descricao);
             pckProdutos.ItemsSource = produtos;
+        }
+
+        private async void lstView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            ListView lv = (ListView)sender;
+            ItemLancamento il = (ItemLancamento)lv.SelectedItem;
+
+            var dp = await DisplayAlert("Remover Item", "Deseja excluir " + il.Descricao, "OK", "Cancela");
+
+            if (dp)
+            {
+                ListaItens.Remove(il);
+            }
         }
     }
 }

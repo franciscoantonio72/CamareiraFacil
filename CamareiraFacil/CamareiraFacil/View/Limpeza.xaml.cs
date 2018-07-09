@@ -175,7 +175,15 @@ namespace CamareiraFacil.View
 
         private void pckApartamentos_SelectedIndexChanged(object sender, EventArgs e)
         {
+            btnFinalizar.IsEnabled = false;
+            btnIniciar.IsEnabled = false;
+
             apartamento = listaApartamentos[pckApartamentos.SelectedIndex];
+
+            if (apartamento.Situacao.Equals("A"))
+                btnFinalizar.IsEnabled = true;
+            if (apartamento.Situacao.Equals("S"))
+                btnIniciar.IsEnabled = true;
         }
     }
 }

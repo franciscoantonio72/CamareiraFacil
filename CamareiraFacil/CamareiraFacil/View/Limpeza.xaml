@@ -25,8 +25,8 @@
                 </ListView.ItemTemplate>
             </ListView>
             <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
-                <Button x:Name="btnIniciar" Text="Iniciar Limpeza" Clicked="btnIniciar_Clicked" />
-                <Button x:Name="btnFinalizar" Text="Finalizar Limpeza" Clicked="btnFinalizar_Clicked" />
+                <Button x:Name="btnIniciar" Text="Iniciar Limpeza" Clicked="btnIniciar_Clicked" IsEnabled="False"/>
+                <Button x:Name="btnFinalizar" Text="Finalizar Limpeza" Clicked="btnFinalizar_Clicked" IsEnabled="False"/>
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>

@@ -14,7 +14,7 @@ namespace CamareiraFacil.Service
     public class ApiCamareiraFacil
     {
         private string BaseURL = "http://10.2.25.202:6051";
-        private string BaseURLConsumo = "http://10.2.25.202:6051/datasnap/rest/TServerMethods1/LancaConsumo";
+        private string BaseURLConsumo = "http://10.2.25.202:6051/datasnap/rest/TCamareiraFacilAPI/LancaConsumo";
         AppPreferences ap;
 
         public ApiCamareiraFacil()
@@ -25,7 +25,7 @@ namespace CamareiraFacil.Service
             ap = new AppPreferences(Forms.Context);
 
             BaseURL = ap.getAcessKey("IP") + ":" + ap.getAcessKey("PORTA");
-            BaseURLConsumo = BaseURL + "/datasnap/rest/TServerMethods1/LancaConsumo";
+            BaseURLConsumo = BaseURL + "/datasnap/rest/TCamareiraFacilApi/LancaConsumo";
         }
 
         public List<ItemPDV> GetItensPDV(string pdv)
@@ -38,7 +38,7 @@ namespace CamareiraFacil.Service
                 httpClient.BaseAddress = new Uri(BaseURL);
                 httpClient.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
-                HttpResponseMessage response = httpClient.GetAsync("datasnap/rest/TServerMethods1/BuscarItensPDVsPorPDV/" + prsPdv).Result;
+                HttpResponseMessage response = httpClient.GetAsync("datasnap/rest/TCamareiraFacilApi/BuscarItensPDVsPorPDV/" + prsPdv).Result;
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -64,7 +64,7 @@ namespace CamareiraFacil.Service
                 httpClient.BaseAddress = new Uri(BaseURL);
                 httpClient.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
-                HttpResponseMessage response = httpClient.GetAsync("datasnap/rest/TServerMethods1/BuscarApartamentoOcupados").Result;
+                HttpResponseMessage response = httpClient.GetAsync("datasnap/rest/TCamareiraFacilApi/BuscarApartamentoOcupados").Result;
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -90,7 +90,33 @@ namespace CamareiraFacil.Service
                 httpClient.BaseAddress = new Uri(BaseURL);
                 httpClient.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
-                HttpResponseMessage response = httpClient.GetAsync("datasnap/rest/TServerMethods1/BuscarApartamentos").Result;
+                HttpResponseMessage response = httpClient.GetAsync("datasnap/rest/TCamareiraFacilApi/BuscarApartamentos").Result;
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var teste = response.Content.ReadAsStringAsync().Result;
+
+                    var resultado = JsonConvert.DeserializeObject<DataSnapResponse<List<Apartamento>>>(teste);
+
+                    return resultado.result;
+                }
+                return null;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public List<Apartamento> GetCarregarCoresApartamento()
+        {
+            try
+            {
+                var httpClient = new HttpClient();
+                httpClient.BaseAddress = new Uri(BaseURL);
+                httpClient.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+
+                HttpResponseMessage response = httpClient.GetAsync("datasnap/rest/TCamareiraFacilApi/CarregarCoresApartamento").Result;
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -116,7 +142,7 @@ namespace CamareiraFacil.Service
 
                 using (var httpClient = new HttpClient())
                 {
-                    HttpRequestMessage message = new HttpRequestMessage(HttpMethod.Post, BaseURL + "/datasnap/rest/TServerMethods1/LancaConsumo");
+                    HttpRequestMessage message = new HttpRequestMessage(HttpMethod.Post, BaseURL + "/datasnap/rest/TCamareiraFacilApi/LancaConsumo");
                     message.Content = new StringContent(jsonLista, Encoding.UTF8, "application/json");
 
                     HttpResponseMessage response = await httpClient.SendAsync(message);
@@ -143,7 +169,7 @@ namespace CamareiraFacil.Service
 
                 using (var httpClient = new HttpClient())
                 {
-                    HttpRequestMessage message = new HttpRequestMessage(HttpMethod.Post, BaseURL + "/datasnap/rest/TServerMethods1/GravaRecado");
+                    HttpRequestMessage message = new HttpRequestMessage(HttpMethod.Post, BaseURL + "/datasnap/rest/TCamareiraFacilApi/GravaRecado");
                     message.Content = new StringContent(jsonRecado, Encoding.UTF8, "application/json");
 
                     HttpResponseMessage response = await httpClient.SendAsync(message);
@@ -170,7 +196,7 @@ namespace CamareiraFacil.Service
 
                 using (var httpClient = new HttpClient())
                 {
-                    HttpRequestMessage message = new HttpRequestMessage(HttpMethod.Post, BaseURL + "/datasnap/rest/TServerMethods1/GravaServico");
+                    HttpRequestMessage message = new HttpRequestMessage(HttpMethod.Post, BaseURL + "/datasnap/rest/TCamareiraFacilApi/GravaServico");
                     message.Content = new StringContent(jsonRecado, Encoding.UTF8, "application/json");
 
                     HttpResponseMessage response = await httpClient.SendAsync(message);
@@ -197,7 +223,7 @@ namespace CamareiraFacil.Service
 
                 using (var httpClient = new HttpClient())
                 {
-                    HttpRequestMessage message = new HttpRequestMessage(HttpMethod.Post, BaseURL + "/datasnap/rest/TServerMethods1/ComecaFaxina");
+                    HttpRequestMessage message = new HttpRequestMessage(HttpMethod.Post, BaseURL + "/datasnap/rest/TCamareiraFacilApi/ComecaFaxina");
                     message.Content = new StringContent(jsonRecado, Encoding.UTF8, "application/json");
 
                     HttpResponseMessage response = await httpClient.SendAsync(message);
@@ -227,7 +253,7 @@ namespace CamareiraFacil.Service
 
                 using (var httpClient = new HttpClient())
                 {
-                    HttpRequestMessage message = new HttpRequestMessage(HttpMethod.Post, BaseURL + "/datasnap/rest/TServerMethods1/FinalizaFaxina");
+                    HttpRequestMessage message = new HttpRequestMessage(HttpMethod.Post, BaseURL + "/datasnap/rest/TCamareiraFacilApi/FinalizaFaxina");
                     message.Content = new StringContent(jsonRecado, Encoding.UTF8, "application/json");
 
                     HttpResponseMessage response = await httpClient.SendAsync(message);
@@ -257,7 +283,7 @@ namespace CamareiraFacil.Service
                 httpClient.BaseAddress = new Uri(BaseURL);
                 httpClient.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
-                HttpResponseMessage response = httpClient.GetAsync("datasnap/rest/TServerMethods1/BuscarFuncionarios").Result;
+                HttpResponseMessage response = httpClient.GetAsync("datasnap/rest/TCamareiraFacilApi/BuscarFuncionarios").Result;
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -284,7 +310,7 @@ namespace CamareiraFacil.Service
                 httpClient.BaseAddress = new Uri(BaseURL);
                 httpClient.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
-                HttpResponseMessage response = httpClient.GetAsync("datasnap/rest/TServerMethods1/BuscarLocaisManutencao").Result;
+                HttpResponseMessage response = httpClient.GetAsync("datasnap/rest/TCamareiraFacilApi/BuscarLocaisManutencao").Result;
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -311,7 +337,7 @@ namespace CamareiraFacil.Service
                 httpClient.BaseAddress = new Uri(BaseURL);
                 httpClient.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
-                HttpResponseMessage response = httpClient.GetAsync("datasnap/rest/TServerMethods1/BuscarPDVs").Result;
+                HttpResponseMessage response = httpClient.GetAsync("datasnap/rest/TCamareiraFacilApi/BuscarPDVs").Result;
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -339,7 +365,7 @@ namespace CamareiraFacil.Service
                 httpClient.BaseAddress = new Uri(BaseURL);
                 httpClient.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
-                HttpResponseMessage response = httpClient.GetAsync("datasnap/rest/TServerMethods1/ValidaSenha/" + senha).Result;
+                HttpResponseMessage response = httpClient.GetAsync("datasnap/rest/TCamareiraFacilApi/ValidaSenha/" + senha).Result;
 
                 if (response.IsSuccessStatusCode)
                 {
